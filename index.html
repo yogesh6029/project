@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">==-=====
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>yash cafe | Small-batch coffee roasters</title>
+<meta name="description" content="yash cafe: small-batch coffee, fresh pastries and a quiet corner to linger in.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{--esp:#2B1712;--car:#C58B54;--cream:#F7F0E5;--beige:#E6D5BC;--sage:#8A9A7B;--sage-d:#5E6E52;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--sans);background:var(--cream);color:var(--esp);line-height:1.65;overflow-x:hidden}
+img{display:block;max-width:100%;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--car);outline-offset:3px}
+h1,h2,h3,.logo{font-family:var(--serif);font-weight:300;line-height:1.08;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.5vw,3.4rem)}
+i{font-style:italic;color:var(--car)}
+.section{padding:6rem clamp(1.25rem,6vw,5rem);max-width:1360px;margin:auto}
+.head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3rem;border-bottom:1px solid var(--beige);padding-bottom:1.5rem}
+.head p{max-width:34ch;color:#6b5448}
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem clamp(1.25rem,5vw,4rem);transition:.35s}
+.nav.solid{background:rgba(247,240,229,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--beige)}
+.logo{font-size:1.6rem}
+nav a{margin:0 1rem;font-size:.95rem;position:relative}
+nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--car);transition:.3s}
+nav a:hover::after{width:100%}
+.nav-actions{display:flex;gap:.5rem}
+.icon-btn{background:none;border:1px solid transparent;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;position:relative;transition:.25s}
+.icon-btn:hover{background:var(--beige)}
+#cartCount{position:absolute;top:2px;right:0;background:var(--car);color:#fff;font-size:.7rem;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center}
+.burger{display:none}
+/* buttons */
+.btn{display:inline-block;background:var(--esp);color:var(--cream);border:1px solid var(--esp);padding:.9rem 1.7rem;border-radius:2px;cursor:pointer;font-weight:500;transition:.3s}
+.btn:hover{background:var(--car);border-color:var(--car);transform:translateY(-2px)}
+.btn.ghost{background:none;color:var(--esp)}
+.btn.ghost:hover{color:#fff}
+.btn.light{background:var(--cream);color:var(--esp);border-color:var(--cream)}
+.btn.full{width:100%}
+/* hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:3rem;padding:8rem clamp(1.25rem,6vw,5rem) 4rem;max-width:1360px;margin:auto}
+.kicker{color:var(--sage-d);font-weight:500;margin-bottom:1.2rem}
+h1{font-size:clamp(3rem,8vw,6.6rem);margin-bottom:1.5rem}
+h1 span{display:block}
+.lead{max-width:44ch;font-size:1.15rem;color:#5a4238;margin-bottom:2rem}
+.cta{display:flex;gap:1rem;flex-wrap:wrap}
+.rise{opacity:0;transform:translateY(40px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero-art{position:relative}
+.arch{aspect-ratio:3/4;border-radius:999px 999px 6px 6px;overflow:hidden;max-width:440px;margin-left:auto;background:var(--beige)}
+.badge{position:absolute;left:-1rem;bottom:12%;background:var(--sage);color:#fff;width:140px;height:140px;border-radius:50%;display:grid;place-content:center;text-align:center;font-size:.8rem;line-height:1.3;animation:float 5s ease-in-out infinite}
+.badge strong{font:300 2.2rem var(--serif)}
+@keyframes float{50%{transform:translateY(-14px)}}
+.steam{position:absolute;top:-30px;right:30%;width:60px;height:80px;display:flex;gap:10px}
+.steam::before,.steam::after{content:"";flex:1;border-radius:50%;background:linear-gradient(var(--beige),transparent);animation:steam 3s ease-in infinite}
+.steam::after{animation-delay:1.2s}
+@keyframes steam{0%{transform:translateY(40px) scaleX(.6);opacity:0}40%{opacity:.8}100%{transform:translateY(-20px) scaleX(1.4);opacity:0}}
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2rem 1.5rem}
+.feat{grid-template-columns:repeat(4,1fr)}
+.feat .card:nth-child(even){margin-top:3rem}
+.card{display:flex;flex-direction:column;animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:scale(.97)}}
+.zoom{overflow:hidden}
+.zoom img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.zoom:hover img{transform:scale(1.1)}
+.card .zoom{aspect-ratio:4/5;background:var(--beige);border-radius:4px}
+.card h3{font-size:1.4rem;margin:1rem 0 .3rem}
+.card p{font-size:.92rem;color:#6b5448;flex:1}
+.buy{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--beige)}
+.price{font:500 1.2rem var(--serif)}
+.add{background:var(--sage);color:#fff;border:0;padding:.55rem 1.1rem;border-radius:2px;cursor:pointer;display:flex;gap:.4rem;align-items:center;transition:.25s}
+.add:hover{background:var(--esp)}
+.add svg{width:16px;height:16px}
+/* menu */
+.menu{background:var(--beige);max-width:none;padding-inline:clamp(1.25rem,6vw,5rem)}
+.menu>*{max-width:1230px;margin-inline:auto}
+.menu .head{border-color:rgba(43,23,18,.15)}
+.tools{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.filters button{background:none;border:1px solid var(--esp);padding:.5rem 1.2rem;border-radius:999px;cursor:pointer;transition:.25s}
+.filters button:hover,.filters button.on{background:var(--esp);color:var(--cream)}
+.search{display:flex;align-items:center;gap:.6rem;background:var(--cream);padding:0 1rem;border-radius:999px;min-width:min(100%,300px)}
+.search input{border:0;background:none;padding:.7rem 0;width:100%;outline:none}
+.search:focus-within{box-shadow:0 0 0 2px var(--car)}
+.empty{text-align:center;padding:3rem 0}
+/* story */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.story-img{aspect-ratio:1;border-radius:6px 160px 6px 6px}
+.story-text h2{margin-bottom:1.5rem}
+.story-text p{margin-bottom:1rem;max-width:52ch;font-size:1.05rem}
+.stats{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.stats b{display:block;font:300 3rem var(--serif);color:var(--car)}
+.stats span{font-size:.9rem}
+/* why */
+.why{background:var(--esp);color:var(--cream);max-width:none;padding-inline:clamp(1.25rem,6vw,5rem)}
+.why>*{max-width:1230px;margin-inline:auto}
+.why .head{border-color:rgba(247,240,229,.2)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.why article{padding:1.5rem 0;border-top:2px solid var(--car);transition:.3s}
+.why article:hover{transform:translateY(-6px);border-color:var(--sage)}
+.why svg{color:var(--car);width:32px;height:32px;margin-bottom:1rem}
+.why h3{font-size:1.4rem;margin-bottom:.5rem}
+.why p{color:#d8c9b6;font-size:.95rem}
+/* offers */
+.offer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.5rem}
+.offer{border:1px solid var(--beige);padding:2rem;border-radius:4px;background:#fffaf2;display:flex;flex-direction:column;gap:.8rem;transition:.3s}
+.offer:hover{transform:translateY(-5px);box-shadow:0 18px 40px -20px rgba(43,23,18,.4)}
+.offer.big{background:var(--sage-d);color:#fff;border:0}
+.offer h3{font-size:1.7rem}
+.offer .btn{align-self:flex-start;margin-top:auto}
+/* slider */
+.slider{max-width:820px;margin:auto;overflow:hidden}
+.track{display:flex;transition:transform .7s cubic-bezier(.6,0,.2,1)}
+blockquote{flex:0 0 100%;text-align:center;padding:0 1rem}
+blockquote p{font:italic 300 clamp(1.4rem,3vw,2.2rem)/1.35 var(--serif);margin-bottom:1.5rem}
+blockquote footer{color:var(--sage-d);font-weight:500}
+.slider-ctrl{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:2rem}
+.icon-btn[aria-label*=review]{border-color:var(--esp)}
+.dots{display:flex;gap:.5rem}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;background:var(--beige);cursor:pointer;transition:.3s}
+.dots button.on{background:var(--car);width:28px;border-radius:5px}
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.contact h2{margin-bottom:2rem}
+.contact li{list-style:none;display:flex;gap:1rem;margin-bottom:1rem;align-items:center}
+.contact svg{color:var(--car);flex:none}
+form label{display:block;margin-bottom:1.2rem;font-weight:500;font-size:.9rem}
+form input,form textarea{display:block;width:100%;margin-top:.4rem;padding:.85rem 1rem;background:#fffaf2;border:1px solid var(--beige);border-radius:2px;outline:none;transition:.25s}
+form input:focus,form textarea:focus{border-color:var(--car);box-shadow:0 0 0 3px rgba(197,139,84,.2)}
+label.bad input,label.bad textarea{border-color:#b3412f}
+small{display:block;color:#b3412f;min-height:1.1em;font-weight:400}
+.form-ok{margin-top:1rem;color:var(--sage-d);font-weight:500}
+/* newsletter */
+.news{background:var(--car);color:var(--esp);display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;padding:4rem clamp(1.25rem,6vw,5rem)}
+.news h2{font-size:2.2rem}
+.news form{display:flex;gap:.5rem;flex-wrap:wrap;flex:1;max-width:480px}
+.news input{flex:1;min-width:200px;padding:.9rem 1rem;border:0;background:var(--cream);border-radius:2px;outline:none}
+.news small{width:100%;color:var(--esp)}
+/* footer */
+.footer{background:var(--esp);color:var(--cream);padding:3.5rem clamp(1.25rem,6vw,5rem) 2rem;display:grid;grid-template-columns:1fr auto auto;gap:2rem;align-items:center}
+.footer nav a{margin:0 .8rem 0 0}
+.social{display:flex;gap:1rem}
+.social a{width:42px;height:42px;border:1px solid rgba(247,240,229,.3);border-radius:50%;display:grid;place-items:center;transition:.3s}
+.social a:hover{background:var(--car);border-color:var(--car)}
+.footer p{grid-column:1/-1;font-size:.85rem;opacity:.6;border-top:1px solid rgba(247,240,229,.15);padding-top:1.5rem}
+/* cart */
+.overlay{position:fixed;inset:0;background:rgba(43,23,18,.55);opacity:0;pointer-events:none;transition:.35s;z-index:90}
+.overlay.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--cream);z-index:100;transform:translateX(100%);transition:transform .45s cubic-bezier(.6,0,.2,1);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--beige)}
+.items{flex:1;overflow:auto;padding:1rem 1.5rem}
+.item{display:grid;grid-template-columns:70px 1fr auto;gap:1rem;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--beige)}
+.item img{width:70px;height:70px;border-radius:4px}
+.item h4{font:400 1.05rem var(--serif)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--beige);border-radius:999px;margin-top:.4rem}
+.qty button{width:28px;height:28px;background:none;border:0;cursor:pointer;font-size:1.1rem}
+.qty span{min-width:24px;text-align:center;font-size:.9rem}
+.rm{background:none;border:0;cursor:pointer;color:#8a6f60;font-size:.8rem;display:block;margin-top:.5rem;margin-left:auto}
+.drawer-foot{padding:1.2rem 1.5rem;border-top:1px solid var(--beige);background:#fffaf2}
+.row{display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.95rem}
+.row.total{font:500 1.3rem var(--serif);margin:.6rem 0 1rem}
+.link{display:block;margin:1rem auto 0;background:none;border:0;text-decoration:underline;cursor:pointer;font-size:.85rem}
+.cart-empty{text-align:center;padding:3rem 0;color:#6b5448}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--esp);color:var(--cream);padding:.8rem 1.4rem;border-radius:999px;z-index:120;transition:.4s}
+.toast.on{transform:translate(-50%,0)}
+/* reveal */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+/* responsive */
+@media(max-width:960px){
+.hero,.story,.contact{grid-template-columns:1fr;gap:3rem}
+.hero{padding-top:7rem}.arch{margin:auto}.feat{grid-template-columns:repeat(2,1fr)}
+.why-grid{grid-template-columns:1fr 1fr}.offer-grid{grid-template-columns:1fr}
+.burger{display:grid}
+#menuLinks{position:fixed;inset:0 0 auto;top:68px;background:var(--cream);display:flex;flex-direction:column;padding:1rem 1.5rem 2rem;gap:1rem;transform:translateY(-130%);transition:.4s;box-shadow:0 20px 30px -20px rgba(43,23,18,.4);z-index:-1}
+#menuLinks.open{transform:none}
+#menuLinks a{margin:0;font-size:1.3rem;font-family:var(--serif)}
+.footer{grid-template-columns:1fr}}
+@media(max-width:560px){.feat,.why-grid{grid-template-columns:1fr}.feat .card:nth-child(even){margin-top:0}.section{padding-block:4rem}.badge{width:110px;height:110px;left:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rise,.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#top" class="logo">yash <i>&amp;</i> cafe</a>
+  <nav id="menuLinks" aria-label="Main">
+    <a href="#featured">Collection</a><a href="#menu">Menu</a><a href="#story">Our story</a>
+    <a href="#offers">Offers</a><a href="#contact">Visit</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="icon-btn" id="cartBtn" aria-label="Open cart"><i data-lucide="shopping-bag"></i><span id="cartCount">0</span></button>
+    <button class="icon-btn burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-text">
+    <p class="kicker rise" style="--d:.1s">Roasted every Tuesday in Lucknow</p>
+    <h1><span class="rise" style="--d:.25s">start morning,</span><span class="rise" style="--d:.4s">with</span><span class="rise" style="--d:.55s"><i>yash cafe.</i></span></h1>
+    <p class="lead rise" style="--d:.7s">Single-origin coffee, hand-pulled espresso and pastries baked before sunrise. Pull up a chair, or take the beans home.</p>
+    <div class="cta rise" style="--d:.85s"><a href="#menu" class="btn">Order from the menu</a><a href="#story" class="btn ghost">Read our story</a></div>
+  </div>
+  <div class="hero-art">
+    <div class="arch zoom"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Steaming cup of coffee on a wooden table"></div>
+    <div class="badge"><strong>48h</strong><span>from roaster to cup</span></div>
+    <div class="steam" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="section" id="featured">
+  <div class="head"><h2>The house collection</h2><p>Four pours we would hand you first. Each one changes with the season.</p></div>
+  <div class="grid feat" id="featuredGrid"></div>
+</section>
+
+<section class="section menu" id="menu">
+  <div class="head"><h2>Full menu</h2><p>Filter by category or search for something specific.</p></div>
+  <div class="tools">
+    <div class="filters" id="filters" role="group" aria-label="Categories"></div>
+    <label class="search"><i data-lucide="search"></i><input type="search" id="search" placeholder="Search coffees, teas, pastries" aria-label="Search menu"></label>
+  </div>
+  <div class="grid" id="menuGrid" aria-live="polite"></div>
+  <p class="empty" id="empty" hidden>Nothing matches that search. Try a different word or choose All.</p>
+</section>
+
+<section class="section story" id="story">
+  <div class="story-img zoom"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1000&q=80" alt="Inside the Brew &amp; Bloom café"></div>
+  <div class="story-text">
+    <h2>A café built around the first cup of the day</h2>
+    <p>Brew &amp; Bloom began in 2017 as a two-table counter and a secondhand roaster. We still buy directly from small farms in Coorg, Chikmagalur and Ethiopia, and we pay above fair-trade prices.</p>
+    <p>Everything is made in small batches: beans roasted twice a week, milk steamed to order, croissants laminated by hand. The flowers on every table are from the market down the road.</p>
+    <div class="stats"><div><b data-count="7">0</b><span>years roasting</span></div><div><b data-count="14">0</b><span>partner farms</span></div><div><b data-count="30">0</b><span>pastries daily</span></div></div>
+  </div>
+</section>
+
+<section class="section why" id="why">
+  <div class="head"><h2>Why people stay</h2></div>
+  <div class="why-grid">
+    <article><i data-lucide="sprout"></i><h3>Traceable beans</h3><p>Every bag lists the farm, altitude and harvest date.</p></article>
+    <article><i data-lucide="flame"></i><h3>Roasted in-house</h3><p>Small batches, so nothing sits on a shelf for months.</p></article>
+    <article><i data-lucide="leaf"></i><h3>Kinder footprint</h3><p>Compostable cups, oat and almond milk at no extra cost.</p></article>
+    <article><i data-lucide="armchair"></i><h3>Room to linger</h3><p>Free Wi-Fi, soft chairs and no pressure to leave.</p></article>
+  </div>
+</section>
+
+<section class="section offers" id="offers">
+  <div class="head"><h2>Offers this month</h2></div>
+  <div class="offer-grid">
+    <article class="offer big"><h3>Free pastry with any beans</h3><p>Buy a 250g bag and pick any pastry on us. Weekdays before noon.</p><button class="btn light" data-code="BLOOM10" id="copyCode">Copy code BLOOM10</button></article>
+    <article class="offer"><h3>Student hour</h3><p>20% off brewed coffee, 3 to 5 pm, with a valid ID.</p></article>
+    <article class="offer"><h3>Bring your own cup</h3><p>Save ₹30 on every drink, every day.</p></article>
+  </div>
+</section>
+
+<section class="section reviews">
+  <div class="head"><h2>What regulars say</h2></div>
+  <div class="slider" id="slider">
+    <div class="track" id="track">
+      <blockquote><p>The flat white is the best I have had in India. I now work from the corner table every Friday.</p><footer>Aanya Mishra, designer</footer></blockquote>
+      <blockquote><p>Their Coorg pour-over tastes of jaggery and orange peel. I bought three bags before I left the shop.</p><footer>Rohan Verma, engineer</footer></blockquote>
+      <blockquote><p>Warm, calm and the almond croissant is dangerous. It is our family's Sunday ritual.</p><footer>Meera Kapoor, teacher</footer></blockquote>
+    </div>
+    <div class="slider-ctrl"><button class="icon-btn" id="prev" aria-label="Previous review"><i data-lucide="arrow-left"></i></button><div id="dots" class="dots"></div><button class="icon-btn" id="next" aria-label="Next review"><i data-lucide="arrow-right"></i></button></div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="contact-info">
+    <h2>Come by, or write to us</h2>
+    <ul>
+      <li><i data-lucide="map-pin"></i>12 Hazratganj Lane, Lucknow 226001</li>
+      <li><i data-lucide="clock"></i>Daily, 7 am to 10 pm</li>
+      <li><i data-lucide="phone"></i>+91 98765 43210</li>
+      <li><i data-lucide="mail"></i>hello@brewandbloom.in</li>
+    </ul>
+  </div>
+  <form id="contactForm" novalidate>
+    <label>Name<input name="name" type="text" autocomplete="name"><small></small></label>
+    <label>Email<input name="email" type="email" autocomplete="email"><small></small></label>
+    <label>Message<textarea name="message" rows="4"></textarea><small></small></label>
+    <button class="btn" type="submit">Send message</button>
+    <p class="form-ok" id="formOk" hidden>Thanks, your message is on its way. We reply within a day.</p>
+  </form>
+</section>
+
+<section class="news">
+  <div><h2>Get the Sunday roast list</h2><p>New beans, seasonal drinks and the occasional discount. One email a week.</p></div>
+  <form id="newsForm" novalidate><input type="email" name="email" placeholder="Your email address" aria-label="Email address"><button class="btn light" type="submit">Subscribe</button><small id="newsMsg" role="status"></small></form>
+</section>
+</main>
+
+<footer class="footer">
+  <a href="#top" class="logo">Brew <i>&amp;</i> Bloom</a>
+  <nav aria-label="Footer"><a href="#featured">Collection</a><a href="#menu">Menu</a><a href="#story">Story</a><a href="#contact">Visit</a></nav>
+  <div class="social"><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a></div>
+  <p>© <span id="year"></span> Brew &amp; Bloom. Roasted with care.</p>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head"><h2>Your cart</h2><button class="icon-btn" id="closeCart" aria-label="Close cart"><i data-lucide="x"></i></button></div>
+  <div class="items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+    <div class="row"><span>GST (5%)</span><span id="tax">₹0</span></div>
+    <div class="row total"><span>Total</span><span id="total">₹0</span></div>
+    <button class="btn full" id="checkout">Place order</button>
+    <button class="link" id="clearCart">Empty cart</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+<script>
+'use strict';
+const IMG = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=600&q=80`;
+const PRODUCTS = [
+  {id:1,name:'Velvet Flat White',cat:'Espresso',price:180,feat:1,desc:'Double ristretto with silky microfoam.',img:'photo-1509042239860-f550ce710b93'},
+  {id:2,name:'Caramel Bloom Latte',cat:'Latte',price:220,feat:1,desc:'House caramel, espresso and steamed milk.',img:'photo-1461023058943-07fcbe16d735'},
+  {id:3,name:'Coorg Pour-Over',cat:'Espresso',price:240,feat:1,desc:'Jaggery sweetness with a citrus finish.',img:'photo-1447933601403-0c6688de566e'},
+  {id:4,name:'Nitro Cold Brew',cat:'Cold',price:260,feat:1,desc:'Steeped 18 hours, poured over nitrogen.',img:'photo-1517701604599-bb29b565090c'},
+  {id:5,name:'Classic Cappuccino',cat:'Latte',price:190,desc:'Equal parts espresso, milk and foam.',img:'photo-1514432324607-a09d9b4aefdd'},
+  {id:6,name:'Single Espresso',cat:'Espresso',price:120,desc:'Short, sweet and syrupy.',img:'photo-1510707577719-ae7c14805e3a'},
+  {id:7,name:'Iced Vanilla Latte',cat:'Cold',price:230,desc:'Vanilla bean, espresso, cold milk.',img:'photo-1461023058943-07fcbe16d735'},
+  {id:8,name:'Sage Matcha Latte',cat:'Latte',price:250,desc:'Ceremonial matcha whisked to order.',img:'photo-1536256263959-770b48d82b0a'},
+  {id:9,name:'Almond Croissant',cat:'Pastry',price:170,desc:'Twice-baked with frangipane.',img:'photo-1555507036-ab1f4038808a'},
+  {id:10,name:'Blueberry Muffin',cat:'Pastry',price:140,desc:'Buttery crumb, wild blueberries.',img:'photo-1607958996333-41aef7caefaa'},
+  {id:11,name:'Cinnamon Roll',cat:'Pastry',price:160,desc:'Warm, gooey, cream-cheese glaze.',img:'photo-1509365465985-25d11c17e812'},
+  {id:12,name:'Beans, 250g bag',cat:'Beans',price:550,desc:'Our house medium roast to brew at home.',img:'photo-1559056199-641a0ac8b55e'}
+];
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const money = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const icons = () => window.lucide && lucide.createIcons();
+let cart = [], cat = 'All', query = '';
+try { cart = JSON.parse(localStorage.getItem('bb-cart')) || []; } catch (e) { cart = []; }
+
+/* products */
+const card = p => `<article class="card"><div class="zoom"><img src="${IMG(p.img)}" alt="${p.name}" loading="lazy" onerror="this.removeAttribute('src')"></div>
+<h3>${p.name}</h3><p>${p.desc}</p><div class="buy"><span class="price">${money(p.price)}</span>
+<button class="add" data-id="${p.id}"><i data-lucide="plus"></i>Add</button></div></article>`;
+$('#featuredGrid').innerHTML = PRODUCTS.filter(p => p.feat).map(card).join('');
+const cats = ['All', ...new Set(PRODUCTS.map(p => p.cat))];
+$('#filters').innerHTML = cats.map(c => `<button class="${c === cat ? 'on' : ''}" data-cat="${c}">${c}</button>`).join('');
+function renderMenu() {
+  const list = PRODUCTS.filter(p => (cat === 'All' || p.cat === cat) &&
+    (p.name + p.desc + p.cat).toLowerCase().includes(query));
+  $('#menuGrid').innerHTML = list.map(card).join('');
+  $('#empty').hidden = list.length > 0;
+  icons();
+}
+$('#filters').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  cat = b.dataset.cat;
+  $$('#filters button').forEach(x => x.classList.toggle('on', x === b));
+  renderMenu();
+});
+$('#search').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); renderMenu(); });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.add'); if (b) addToCart(+b.dataset.id);
+});
+
+/* cart */
+const save = () => { try { localStorage.setItem('bb-cart', JSON.stringify(cart)); } catch (e) {} };
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2200);
+}
+function addToCart(id) {
+  const it = cart.find(c => c.id === id);
+  it ? it.qty++ : cart.push({ id, qty: 1 });
+  renderCart(); toast(PRODUCTS.find(p => p.id === id).name + ' added to cart');
+}
+function renderCart() {
+  const rows = cart.map(c => ({ ...PRODUCTS.find(p => p.id === c.id), qty: c.qty }));
+  $('#cartItems').innerHTML = rows.length ? rows.map(r => `<div class="item">
+    <img src="${IMG(r.img)}" alt="${r.name}" onerror="this.removeAttribute('src')"><div><h4>${r.name}</h4>
+    <span>${money(r.price)}</span><div class="qty"><button data-act="dec" data-id="${r.id}" aria-label="Decrease">−</button>
+    <span>${r.qty}</span><button data-act="inc" data-id="${r.id}" aria-label="Increase">+</button></div></div>
+    <div><strong>${money(r.price * r.qty)}</strong><button class="rm" data-act="rm" data-id="${r.id}">Remove</button></div></div>`).join('')
+    : '<p class="cart-empty">Your cart is empty. Add a coffee from the menu to get started.</p>';
+  const sub = rows.reduce((s, r) => s + r.price * r.qty, 0);
+  $('#subtotal').textContent = money(sub);
+  $('#tax').textContent = money(sub * .05);
+  $('#total').textContent = money(sub * 1.05);
+  $('#cartCount').textContent = cart.reduce((s, c) => s + c.qty, 0);
+  save();
+}
+$('#cartItems').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.dataset.id, it = cart.find(c => c.id === id);
+  if (b.dataset.act === 'inc') it.qty++;
+  if (b.dataset.act === 'dec') it.qty--;
+  if (b.dataset.act === 'rm' || it.qty < 1) cart = cart.filter(c => c.id !== id);
+  renderCart();
+});
+const toggleCart = open => {
+  $('#drawer').classList.toggle('on', open); $('#overlay').classList.toggle('on', open);
+  $('#drawer').setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
+$('#cartBtn').onclick = () => toggleCart(true);
+$('#closeCart').onclick = $('#overlay').onclick = () => toggleCart(false);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleCart(false); });
+$('#clearCart').onclick = () => { cart = []; renderCart(); };
+$('#checkout').onclick = () => {
+  if (!cart.length) return toast('Add something to your cart first');
+  cart = []; renderCart(); toggleCart(false); toast('Order placed. See you at the counter!');
+};
+
+/* nav */
+const nav = $('#nav'), links = $('#menuLinks'), burger = $('#burger');
+addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 30), { passive: true });
+burger.onclick = () => {
+  const open = links.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+  burger.innerHTML = `<i data-lucide="${open ? 'x' : 'menu'}"></i>`; icons();
+};
+links.addEventListener('click', e => { if (e.target.tagName === 'A' && links.classList.contains('open')) burger.click(); });
+
+/* reveal + counters */
+$$('.head,.card,.story>*,.why article,.offer,.slider,.contact>*,.news>*').forEach(el => el.classList.add('reveal'));
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in'); io.unobserve(e.target);
+  $$('[data-count]', e.target).forEach(c => {
+    const to = +c.dataset.count; let n = 0;
+    const t = setInterval(() => { n++; c.textContent = n; if (n >= to) clearInterval(t); }, 1400 / to);
+  });
+}), { threshold: .15 });
+const observeAll = () => $$('.reveal:not(.in)').forEach(el => io.observe(el));
+
+/* slider */
+const slides = $$('#track blockquote'); let cur = 0, timer;
+$('#dots').innerHTML = slides.map((_, i) => `<button aria-label="Review ${i + 1}"></button>`).join('');
+const dots = $$('#dots button');
+function go(i) {
+  cur = (i + slides.length) % slides.length;
+  $('#track').style.transform = `translateX(-${cur * 100}%)`;
+  dots.forEach((d, k) => d.classList.toggle('on', k === cur));
+}
+const auto = () => { clearInterval(timer); timer = setInterval(() => go(cur + 1), 5500); };
+$('#next').onclick = () => { go(cur + 1); auto(); };
+$('#prev').onclick = () => { go(cur - 1); auto(); };
+dots.forEach((d, i) => d.onclick = () => { go(i); auto(); });
+go(0); auto();
+
+/* forms */
+const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+$('#contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target, v = k => f[k].value.trim(), err = {};
+  if (v('name').length < 2) err.name = 'Enter your name (at least 2 characters).';
+  if (!emailOk(v('email'))) err.email = 'Enter a valid email, like name@example.com.';
+  if (v('message').length < 10) err.message = 'Write a message of at least 10 characters.';
+  ['name', 'email', 'message'].forEach(k => {
+    const l = f[k].closest('label'); l.classList.toggle('bad', !!err[k]); $('small', l).textContent = err[k] || '';
+  });
+  if (Object.keys(err).length) return;
+  f.reset(); $('#formOk').hidden = false; setTimeout(() => $('#formOk').hidden = true, 6000);
+});
+$('#newsForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = e.target.email.value.trim(), m = $('#newsMsg');
+  if (!emailOk(v)) { m.textContent = 'Enter a valid email address.'; return; }
+  m.textContent = 'You are subscribed. Check your inbox on Sunday.'; e.target.reset();
+});
+$('#copyCode').onclick = e => {
+  const c = e.target.dataset.code;
+  (navigator.clipboard ? navigator.clipboard.writeText(c) : Promise.reject()).then(() => toast('Code ' + c + ' copied'), () => toast('Your code: ' + c));
+};
+
+/* init */
+$('#year').textContent = new Date().getFullYear();
+renderCart(); renderMenu(); observeAll(); icons();
+</script>
+</body>
+</html>
